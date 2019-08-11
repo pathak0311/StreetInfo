@@ -1,0 +1,101 @@
+<ion-view ng-controller="UserCtrl" view-title="Account">
+  <ion-nav-title>Account</ion-nav-title>
+  <ion-content ng-app="UserCtrl" scroll="false">
+    <video autoplay loop id="bgvid" webkit-playsinline ng-class="{'bright-vid': !vid}">
+        <source src="img/bgVideo.MP4" type="video/mp4">
+    </video>
+    <h1 ng-if="!user" class="ride-mexico">Ride Mexico</h1>
+    <div ng-if="!user">
+      <div ng-show="form" ng-init="form = true" class="login">
+        <label class="user-form item-input item-floating-label form-element">
+          <span class="input-label">E-mail</span>
+          <input type="text" ng-model="email" placeholder="E-mail" required="true">
+        </label>
+        <label class="user-form item-input item-floating-label form-element">
+          <span class="input-label">Password</span>
+          <input type="password" ng-model="password" placeholder="Password" required="true">
+        </label>
+        <button ng-click="initLogin(email, password)" class="button button-block button-energized">
+          Login
+        </button>
+        <button ng-click="form = false" class="button button-clear button-small button-positive">
+          Click here to register
+        </button>
+      </div>
+      <div ng-show="!form" class="register">
+        <label class="user-form item-input item-floating-label form-element">
+          <span class="input-label">Full Name</span>
+          <input type="text" ng-model="fullname" placeholder="Full Name" required="true">
+        </label>
+        <label class="user-form item-input item-floating-label form-element">
+          <span class="input-label">Username</span>
+          <input type="text" ng-model="username" placeholder="Username" required="true">
+        </label>
+        <label class="user-form item-input item-floating-label form-element">
+          <span class="input-label">E-mail</span>
+          <input type="text" ng-model="email" placeholder="E-mail" required="true">
+        </label>
+        <label class="user-form item-input item-floating-label form-element">
+          <span class="input-label">Password</span>
+          <input type="password" ng-model="password" placeholder="Password" required="true">
+        </label>
+        <button ng-click="initRegister(fullname, username, email, password)" class="button button-block button-assertive">
+          Register
+        </button>
+        <button ng-click="form = true" class="button button-clear button-small button-positive">
+          Click here to login
+        </button>
+      </div>
+    </div>
+    <div ng-if="user">
+      <div class="list card userShadow">
+        <a class="item item-icon-left item-borderless" style="color: #ff66ff;">
+          <i class="icon ion-heart"></i>
+            <h2 style="color: #ff66ff; font-size: 20px;"><ion-spinner ng-if="gettingLikes" icon="android"></ion-spinner>{{totalLikes}}</h2>
+        </a>
+        <a class="item dark">
+            <h2 class="dark" style="font-size: 20px">Unmaintained reports: {{totalUnmaintained}}<ion-spinner ng-if="gettingUnmaintained" icon="android"></ion-spinner></h2>
+        </a>
+        <a class="item royal">
+            <h2 class="royal" style="font-size: 20px;">Conjusted reports: {{totalConjusted}}<ion-spinner ng-if="gettingConjusted" icon="android"></ion-spinner></h2>
+        </a>
+        <a class="item energized">
+            <h2 class="energized" style="font-size: 20px;">Late reports: {{totalLate}}<ion-spinner ng-if="gettingLate" icon="android"></ion-spinner></h2>
+        </a>
+        <a class="item balanced">
+            <h2 class="balanced" style="font-size: 20px;">Cards posted: {{totalPosts}}<ion-spinner ng-if="gettingPosts" icon="android"></ion-spinner></h2>
+        </a>
+      </div>
+      <div class="list card userShadow">
+        <a class="item item-icon-left assertive" ng-click="toggleEmailReset()">
+          <i class="icon ion-android-alert"></i>
+            <h2 class="assertive" style="font-size: 20px; padding-left: 30px;">Reset E-mail</h2>
+        </a>
+        <div class-"list" ng-if="emailReset">
+          <div class="item item-input-inset">
+            <label class="item-input-wrapper">
+              <input type="text" placeholder="Email" ng-model="newEmail">
+            </label>
+            <button class="button button-small" ng-click="resetEmail(newEmail)">
+              Submit
+            </button>
+          </div>
+        </div>
+        <a class="item item-icon-left assertive" ng-click="togglePasswordReset()">
+          <i class="icon ion-android-alert"></i>
+            <h2 class="assertive" style="font-size: 20px; padding-left: 30px;">Reset Password</h2>
+            <div ng-if="passwordReset">
+              <div class="button-bar bus-button-bar">
+                  <button class="button button-assertive" ng-click="resetPassword()">
+                    Send reset E-mail
+                  </button>
+              </div>
+            </div>
+        </a>
+      </div>
+    </div>
+  </ion-content>
+  <div ng-if="user" class="bar bar-footer bar-dark">
+    <div ng-click="logout()" class="title">Logout</div>
+  </div>
+</ion-view>
